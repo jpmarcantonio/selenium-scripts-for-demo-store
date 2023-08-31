@@ -27,27 +27,25 @@ def verify_error_messgae_displayed():
     else:
         raise Exception("The Error message is not displayed")
 
-# Checks to see if error message matches expected. This function and lines in 'main' are commented out because this should be its own test case
-# def verify_error_message_matches_expected():
-#     coupon_error = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="post-7"]/div/div/div[1]/ul')))
-#     displayed_error = coupon_error.text
-#     assert displayed_error == expected_error, "The displayed error does not match the expected error."
+def verify_error_message_matches_expected():
+    coupon_error = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="post-7"]/div/div/div[1]/ul')))
+    displayed_error = coupon_error.text
+    assert displayed_error == expected_error, "The displayed error does not match the expected error."
 
 
 if __name__ == '__main__':
 
     invalid_coupon_code = "NotACoupon"
-    # expected_error = 'Coupon "notacoupon" does not exist!'
+    expected_error = 'Coupon "notacoupon" does not exist!'
 
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 10)
 
-    driver.get('http://demostore.supersqa.com/')
+    driver.get('http://localhost:8888/mysite2/')
 
     add_1_item_to_cart()
     click_cart_in_top_menu()
     input_invalid_coupon_and_hit_enter(invalid_coupon_code)
     verify_error_messgae_displayed()
-    # verify_error_message_matches_expected()
-    # print('PASS')
+    verify_error_message_matches_expected()
     driver.quit()
